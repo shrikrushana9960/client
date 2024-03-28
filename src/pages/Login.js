@@ -61,6 +61,7 @@ function Login() {
       console.log(res.data);
       if (res.data.success) {
         console.log(res.data.data);
+        localStorage.setItem("token",res.data.token)
         dispatch({
           type: "SET_USER_DETAILS",
           userDetails: res.data.data,
@@ -90,6 +91,7 @@ function Login() {
       });
       console.log(res.data);
       if(res.data.data){
+        localStorage.setItem("token",res.data.token)
         navigate("/")
       }
     } catch (e) {
