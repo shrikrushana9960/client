@@ -127,7 +127,7 @@ function ResponsiveAppBar() {
             variant="contained"
             style={{ background: "black" }}
             onClick={() => {
-              
+              localStorage.removeItem("token")
               navigate("/login")}}
           >
             Logout
