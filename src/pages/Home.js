@@ -30,7 +30,11 @@ const Home = () => {
 
   const getData = async () => {
     try {
-      const res = await Api.get("/user/allUsers");
+      const res = await Api.get("/user/allUsers",{  headers: {
+        "Content-Type": "application/json",
+        "Authorization":`Bearer ${localStorage.getItem("token")}`
+      },
+     });
       console.log({ data: res.data });
       if (res.data?.success) setRows(res.data.data);
     } catch (e) {

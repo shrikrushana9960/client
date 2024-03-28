@@ -57,7 +57,11 @@ function Login() {
       let res = await Api.post("/user/login", {
         email,
         password,
-      });
+      },{  headers: {
+        "Content-Type": "application/json",
+        "Authorization":`Bearer ${localStorage.getItem("token")}`
+      },
+     });
       console.log(res.data);
       if (res.data.success) {
         console.log(res.data.data);
@@ -88,7 +92,11 @@ function Login() {
         password,
         email,
         dob
-      });
+      },{  headers: {
+        "Content-Type": "application/json",
+        "Authorization":`Bearer ${localStorage.getItem("token")}`
+      },
+     });
       console.log(res.data);
       if(res.data.data){
         localStorage.setItem("token",res.data.token)

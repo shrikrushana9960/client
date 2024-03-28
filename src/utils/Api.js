@@ -6,12 +6,9 @@ const Api = axios.create({
   baseURL,
   withCredentials: true,
   timeout: 10000,
-  headers: {
-    "Content-Type": "application/json",
-    "Authorization":`Bearer ${localStorage.getItem("token")}`
-  },
- 
+
 });
+
 Api.interceptors.response.use(
   (response) => response,
   (error) => {

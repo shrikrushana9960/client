@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import ResponsiveAppBar from './ResponsiveAppBar';
+import React, { useEffect } from "react";
+import ResponsiveAppBar from "./ResponsiveAppBar";
 
-import PropTypes from 'prop-types';
-import { useDataLayerValue } from '../DataLayer/DataLayer';
-import Api from '../utils/Api';
-import { useNavigate } from 'react-router-dom';
+import PropTypes from "prop-types";
+import { useDataLayerValue } from "../DataLayer/DataLayer";
+import Api from "../utils/Api";
+import { useNavigate } from "react-router-dom";
 const Layout = ({ children }) => {
   const [{ userDetails }, dispatch] = useDataLayerValue();
   const navigate = useNavigate();
@@ -15,21 +15,26 @@ const Layout = ({ children }) => {
   }, []);
   const getUser = async () => {
     try {
-      let res = await Api.get('/user');
+      let res = await Api.get("/user", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       console.log(res.data);
       if (res.data.success) {
         console.log(res.data.data);
         dispatch({
-          type: 'SET_USER_DETAILS',
-          userDetails: res.data.data
+          type: "SET_USER_DETAILS",
+          userDetails: res.data.data,
         });
       }
     } catch (e) {
       dispatch({
-        type: 'SET_ERROR_MESSAGE',
-        errMess: { message: 'Account Not Found ', type: 'error' }
+        type: "SET_ERROR_MESSAGE",
+        errMess: { message: "Account Not Found ", type: "error" },
       });
-      navigate('/login');
+      navigate("/login");
     }
   };
   return (
@@ -40,6 +45,6 @@ const Layout = ({ children }) => {
   );
 };
 Layout.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 export default Layout;
